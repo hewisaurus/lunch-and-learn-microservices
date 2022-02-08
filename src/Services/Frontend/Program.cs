@@ -11,6 +11,8 @@ var apiConfiguration = new ApiConfiguration();
 builder.Configuration.GetSection("ApiConfiguration").Bind(apiConfiguration);
 builder.Services.AddSingleton(apiConfiguration);
 
+builder.Services.AddHealthChecks();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -28,5 +30,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseHealthChecks("/health");
 
 app.Run();

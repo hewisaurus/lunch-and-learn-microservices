@@ -1,0 +1,23 @@
+trigger: none
+
+variables:
+  - group: vg-common
+  - group: vg-aks
+pool:
+  #vmImage: ubuntu-latest
+  vmImage: ubuntu-18.04 # just while Azure Pipelines have capacity issues
+
+stages:
+  - stage: Dev_CD
+    displayName: Dev CD
+    jobs:
+      - deployment: dev_helm
+        displayName: Deploy helm chart to Dev AKS
+        environment: dev
+        variables:
+          - group: helm-dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - template: common/cd-helm-steps.yaml

@@ -8,6 +8,7 @@ trigger:
 
 variables:
   - group: vg-common
+  - group: vg-aks
   #- group: vg-serviceConnections
   # Individual variables
   - name: acrRepository
@@ -18,7 +19,8 @@ variables:
     value: frontend_imageTag
 
 pool:
-  vmImage: ubuntu-latest
+  #vmImage: ubuntu-latest
+  vmImage: ubuntu-18.04 # just while Azure Pipelines have capacity issues
 
 stages:
   - stage: Docker_CI

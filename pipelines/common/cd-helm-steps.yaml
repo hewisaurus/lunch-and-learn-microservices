@@ -1,0 +1,79 @@
+steps:
+- checkout: self
+- task: HelmInstaller@1
+  displayName: Install helm
+  inputs:
+    helmVersionToInstall: $(helmVersion)
+- bash: |
+    # Log in to Azure
+    az login \
+     --service-principal \
+     -u $(aksSpId) \
+     -p '$(aksSpSecret)' \
+     --tenant $(aksSpTenantId)
+
+    az aks get-credentials \
+     -n $(aksClusterName) \
+     -g $(aksResourceGroup)
+   
+    helm upgrade \
+     microservices $(Agent.BuildDirectory)/s/helm/microservices \
+     --namespace $(aksNamespace) \
+     --create-namespace \
+     --set global.secretProviderClass=$(global_secretProviderClass) \
+     --set global.baseAddressPartnerApi=$(global_baseAddressPartnerApi) \
+     --set global.baseAddressAirApi=$(global_baseAddressAirApi) \
+     --set global.appInsightsInstrumentationKey=$(global_appInsightsInstrumentationKey) \
+     --set global.appInsightsApiKey=$(global_appInsightsApiKey) \
+     --set global.eventBusHostname=$(global_eventBusHostname) \
+     --set global.cosmosDbHostname=$(global_cosmosDbHostname) \
+     --set global.redisHostname=$(global_redisHostname) \
+     --set global.imageRepositoryUrl=$(global_imageRepositoryUrl) \
+     --set global.sqlHostname=$(global_sqlHostname) \
+     --set global.aspNetEnvironment=$(global_aspNetEnvironment) \
+     --set global.accessLogEvents.instanceId=$(global_accessLogEvents_instanceId) \
+     --set global.accessLogEvents.instanceName=$(global_accessLogEvents_instanceName) \
+     --set global.accessLogEvents.instanceLocation=$(global_accessLogEvents_instanceLocation) \
+     --set global.accessLogEvents.appInsightsInstrumentationKey=$(global_accessLogEvents_appInsightsInstrumentationKey) \
+     --set global.accessLogEvents.clientInstance=$(global_accessLogEvents_clientInstance) \
+     --set secret-provider.tenantId=$(secretProvider_tenantId) \
+     --set secret-provider.identityId=$(secretProvider_identityId) \
+     --set secret-provider.keyVaultName=$(secretProvider_keyVaultName) \
+     --set transaction-api.image.repository=$(transactionApi_repository) \
+     --set transaction-api.image.tag=$(transactionApi_imageTag) \
+     --set transaction-api.keyedVars.cosmosDatabaseName=$(transactionApi_keyedVars_cosmosDatabaseName) \
+     --set transaction-api.keyedVars.cosmosContainerPrefix=$(transactionApi_keyedVars_cosmosContainerPrefix) \
+     --set transaction-worker.image.repository=$(transactionWorker_repository) \
+     --set transaction-worker.image.tag=$(transactionWorker_imageTag) \
+     --set transaction-worker.keyedVars.cosmosDatabaseName=$(transactionWorker_keyedVars_cosmosDatabaseName) \
+     --set transaction-worker.keyedVars.cosmosContainerPrefix=$(transactionWorker_keyedVars_cosmosContainerPrefix) \
+     --set transaction-worker.eventBusConfig.queueNames.transactionSubmission=$(transactionWorker_eventBusConfig_queueNames_transactionSubmission) \
+     --set transaction-worker.eventBusConfig.queueNames.transactionCancellation=$(transactionWorker_eventBusConfig_queueNames_transactionCancellation) \
+     --set accesslog-worker.hpa.queueName=$(accesslogWorker_hpa_queueName) \
+     --set accesslog-worker.image.repository=$(accesslogWorker_repository) \
+     --set accesslog-worker.image.tag=$(accesslogWorker_imageTag) \
+     --set accesslog-worker.keyedVars.cosmosDatabaseName=$(accesslogWorker_keyedVars_cosmosDatabaseName) \
+     --set accesslog-worker.keyedVars.cosmosContainerPrefixPaxFlightAccessLog=$(accesslogWorker_keyedVars_cosmosContainerPrefixPaxFlightAccessLog) \
+     --set accesslog-worker.keyedVars.cosmosContainerPrefixPaxAccommodationAccessLog=$(accesslogWorker_keyedVars_cosmosContainerPrefixPaxAccommodationAccessLog) \
+     --set accesslog-worker.eventBusConfig.queueNames.paxFlightEmissionRequest=$(accesslogWorker_eventBusConfig_queueNames_paxFlightEmissionRequest) \
+     --set accesslog-worker.eventBusConfig.queueNames.paxAccommodationEmissionRequest=$(accesslogWorker_eventBusConfig_queueNames_paxAccommodationEmissionRequest) \
+     --set accommodation-api.image.repository=$(accommodationApi_repository) \
+     --set accommodation-api.image.tag=$(accommodationApi_imageTag) \
+     --set accommodation-api.keyedVars.sqlDatabaseName=$(accommodationApi_keyedVars_sqlDatabaseName) \
+     --set air-api.image.repository=$(airApi_repository) \
+     --set air-api.image.tag=$(airApi_imageTag) \
+     --set air-api.keyedVars.sqlDatabaseName=$(airApi_keyedVars_sqlDatabaseName) \
+     --set partner-api.image.repository=$(partnerApi_repository) \
+     --set partner-api.image.tag=$(partnerApi_imageTag) \
+     --set partner-api.keyedVars.sqlDatabaseName=$(partnerApi_keyedVars_sqlDatabaseName) \
+     --set api-gateway.image.repository=$(apiGateway_repository) \
+     --set api-gateway.image.tag=$(apiGateway_imageTag) \
+     --set api-gateway.ingress.host=$(apiGateway_ingress_host) \
+     --set road-api.image.repository=$(roadApi_repository) \
+     --set road-api.image.tag=$(roadApi_imageTag) \
+     --set road-api.keyedVars.sqlDatabaseName=$(roadApi_keyedVars_sqlDatabaseName) \
+     --install
+  displayName: Upgrade helm chart
+
+
+    

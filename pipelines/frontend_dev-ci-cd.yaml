@@ -11,7 +11,7 @@ variables:
   #- group: vg-serviceConnections
   # Individual variables
   - name: acrRepository
-    value: frontend
+    value: frontend-dev
   - name: dockerfilePath
     value: "**/src/Services/Frontend/Dockerfile"
   - name: imageTagVariableName

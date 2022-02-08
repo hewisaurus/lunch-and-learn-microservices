@@ -6,6 +6,7 @@ trigger:
 variables:
   tagVar: $(Build.SourceBranch)
   triggeredTag: ${{replace(variables['tagVar'], 'refs/tags/', '')}}
+  tag2: ${{ replace('$(tagVar)','refs/tags/','aaa') }}
 
 pool:
   vmImage: ubuntu-latest
@@ -13,6 +14,8 @@ pool:
 steps:
 - script: echo the tag that called this is called $(triggeredTag)
   displayName: 'Run a one-line script'
+- script: echo the tag that called this is called $(tag2)
+  displayName: 'Run a one-line script2'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.

@@ -4,7 +4,8 @@ trigger:
     - 'v*'
 
 variables:
-  triggeredTag: $[replace('$(Build.SourceBranch)', '/refs/tags/', '')]
+  tagVar: $(Build.SourceBranch)
+  triggeredTag: $[replace(variables['tagVar'], '/refs/tags/', '')]
 
 pool:
   vmImage: ubuntu-latest

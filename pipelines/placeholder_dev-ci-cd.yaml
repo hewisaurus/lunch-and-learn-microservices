@@ -1,10 +1,7 @@
 trigger:
-  branches:
+  tags:
     include:
-      - "main"
-  paths:
-    include:
-      - "src/Services/Frontend"
+    - 'v*'
 
 variables:
   tagVar: $(Build.SourceBranch)

@@ -8,4 +8,4 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '$(dockerfilePath)'
     buildContext: 'src'
-    tags: '$(Build.SourceBranch)'
+    tags: '$(Build.SourceVersion)'

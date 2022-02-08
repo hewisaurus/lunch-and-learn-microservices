@@ -5,12 +5,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ApiConfiguration__BackendHost=http://backend-api
+      - "ContentConfiguration__Display=Hey, I'm the frontend"
     ports:
       - "4380:80"
 
   backendapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "ContentConfiguration__Display=Some content probably retrieved from a database somewhere"
     ports:
       - "4381:80"
 

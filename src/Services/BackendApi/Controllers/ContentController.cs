@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BackendApi.Models.Configuration;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BackendApi.Controllers;
 
@@ -6,10 +7,17 @@ namespace BackendApi.Controllers;
 [Route("[controller]")]
 public class ContentController : ControllerBase
 {
+    private readonly ContentConfiguration _contentConfiguration;
+
+    public ContentController(ContentConfiguration contentConfiguration)
+    {
+        _contentConfiguration = contentConfiguration;
+    }
+
     [HttpGet]
     [Route("get")]
     public IActionResult Get()
     {
-        return Ok("Some content from version 1 of the backend API");
+        return Ok(_contentConfiguration.Display);
     }
 }

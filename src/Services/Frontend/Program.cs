@@ -11,6 +11,11 @@ var apiConfiguration = new ApiConfiguration();
 builder.Configuration.GetSection("ApiConfiguration").Bind(apiConfiguration);
 builder.Services.AddSingleton(apiConfiguration);
 
+// Use environment variables for content display - for demo purposes
+var contentConfiguration = new ContentConfiguration();
+builder.Configuration.GetSection("ContentConfiguration").Bind(contentConfiguration);
+builder.Services.AddSingleton(contentConfiguration);
+
 builder.Services.AddHealthChecks();
 
 builder.Services.AddControllersWithViews();

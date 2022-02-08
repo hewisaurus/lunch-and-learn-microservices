@@ -6,7 +6,8 @@
 <div class="text-center">
     <h1 class="display-4">Lunch &amp; Learn Demo</h1>
     <p>A simple demo of a small microservice-based application, deployed via helm onto AKS, with Azure DevOps</p>
-    <p>This is version 1 of the application.</p>
-    <p>Api content:</p>
-    <p>@Model?.ApiContent</p>
+    <p>My content (from environment variables):</p>
+    <p><strong>@Model?.MyContent</strong></p>
+    <p>Content from the backend API:</p>
+    <p><strong>@Model?.ApiContent</strong></p>
 </div>

@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  frontend:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ApiConfiguration__BackendHost=http://backend-api
+    ports:
+      - "4380:80"
+
+  backendapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "4381:80"
+
+
+

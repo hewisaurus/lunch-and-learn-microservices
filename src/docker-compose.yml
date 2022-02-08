@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  frontend:
+    image: ${DOCKER_REGISTRY-}frontend
+    container_name: frontend-app
+    build:
+      context: .
+      dockerfile: Services/Frontend/Dockerfile
+
+  backendapi:
+    image: ${DOCKER_REGISTRY-}backendapi
+    container_name: backend-api
+    build:
+      context: .
+      dockerfile: Services/BackendApi/Dockerfile
+  
+

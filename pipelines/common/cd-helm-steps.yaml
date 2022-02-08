@@ -27,9 +27,9 @@ steps:
      --set frontend.keyedVars.backendHost=$(frontend_backendHost) \
      --set backendapi.image.repository=$(backendapi_repository) \
      --set backendapi.image.tag=$(backendapi_imageTag) \
-     --set backendapi.keyedVars.displayContent=(backendapi_content)
+     --set backendapi.keyedVars.displayContent=(backendapi_content) \
      --install
-     
+
   displayName: Upgrade helm chart
 
 

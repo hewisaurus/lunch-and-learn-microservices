@@ -3,11 +3,14 @@ trigger:
     include:
     - 'v*'
 
+variables:
+  triggeredTag: $[replace($(Build.SourceBranch), '/refs/tags/', '')]
+
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo the tag that called this is called $(Build.SourceBranch)
+- script: echo the tag that called this is called $(triggeredTag)
   displayName: 'Run a one-line script'
 
 - script: |

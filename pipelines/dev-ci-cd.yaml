@@ -7,7 +7,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
+- script: echo the tag that called this is called $(Build.SourceBranch)
   displayName: 'Run a one-line script'
 
 - script: |

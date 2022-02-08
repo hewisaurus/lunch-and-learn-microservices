@@ -30,6 +30,6 @@ steps:
     targetType: 'inline'
     script: |
       $tagName = "$(Build.SourceBranch)" -replace "refs/tags/",""
-      Write-Host "##vso[task.setvariable variable=BRANCH_PATH;]$branchSourcePath"
-      Write-Host "Setting pipeline variable BRANCH_PATH to $branchSourcePath"
+      Write-Host "##vso[task.setvariable variable=BRANCH_PATH;]$tagName"
+      Write-Host "Setting pipeline variable BRANCH_PATH to $tagName"
 

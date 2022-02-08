@@ -12,7 +12,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo the tag that called this is called $(triggeredTag)
+
+- task: PowerShell@2
+  displayName: Remove refs/tags from branch path and set pipeline variable
+  inputs:
+    targetType: 'inline'
+    script: |
+      $tagName = "$(Build.SourceBranch)" -replace "refs/tags/",""
+      Write-Host "##vso[task.setvariable variable=BRANCH_PATH;]$tagName"
+      Write-Host "Setting pipeline variable BRANCH_PATH to $tagName"
+
+- script: echo the tag that called this is called $(BRANCH_PATH)
   displayName: 'Run a one-line script'
 - script: echo the tag that called this is called $(tag2)
   displayName: 'Run a one-line script2'
@@ -23,13 +33,4 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script!'
-
-- task: PowerShell@2
-  displayName: Remove refs/tags from branch path and set pipeline variable
-  inputs:
-    targetType: 'inline'
-    script: |
-      $tagName = "$(Build.SourceBranch)" -replace "refs/tags/",""
-      Write-Host "##vso[task.setvariable variable=BRANCH_PATH;]$tagName"
-      Write-Host "Setting pipeline variable BRANCH_PATH to $tagName"
 

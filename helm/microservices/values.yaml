@@ -13,3 +13,14 @@ frontend:
     enabled: false
   keyedVars:
     backendHost: http://backendHostBaseUrl
+
+backendapi:
+  image:
+    tag: "imageTag"
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+  replicaCount: 1
+  autoscaling:
+    enabled: false

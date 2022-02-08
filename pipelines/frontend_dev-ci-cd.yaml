@@ -19,7 +19,8 @@ variables:
     value: frontend_imageTag
 
 pool:
-  vmImage: ubuntu-latest
+  #vmImage: ubuntu-latest
+  vmImage: ubuntu-18.04 # just while Azure Pipelines have capacity issues
 
 stages:
   - stage: Docker_CI

@@ -5,6 +5,11 @@ steps:
   inputs:
     helmVersionToInstall: $(helmVersion)
 - bash: |
+    ls $(Agent.BuildDirectory)
+    ls $(Agent.BuildDirectory)/s
+    ls $(Agent.BuildDirectory)/s/helm
+    ls $(Agent.BuildDirectory)/s/helm/microservices
+
     # Log in to Azure
     az login \
      --service-principal \

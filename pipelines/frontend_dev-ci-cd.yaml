@@ -8,6 +8,7 @@ trigger:
 
 variables:
   - group: vg-common
+  - group: vg-aks
   #- group: vg-serviceConnections
   # Individual variables
   - name: acrRepository

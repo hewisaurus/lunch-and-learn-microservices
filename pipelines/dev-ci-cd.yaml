@@ -3,6 +3,7 @@ trigger:
     include:
     - 'v*'
 
+
 variables:
   triggeredTag: $[replace('$(Build.SourceBranch)'', '/refs/tags/', '')]
 

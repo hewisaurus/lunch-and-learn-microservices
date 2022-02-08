@@ -13,6 +13,7 @@ frontend:
     enabled: false
   keyedVars:
     backendHost: http://backendHostBaseUrl
+    displayContent: placeholder frontend content
 
 backendapi:
   image:
@@ -24,3 +25,5 @@ backendapi:
   replicaCount: 1
   autoscaling:
     enabled: false
+  keyedVars:
+    displayContent: placeholder api content

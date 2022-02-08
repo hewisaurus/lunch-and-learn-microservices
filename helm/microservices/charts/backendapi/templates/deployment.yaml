@@ -48,6 +48,10 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+          # Specific environment variables
+            - name: ContentConfiguration__Display
+              value: {{ .Values.keyedVars.displayContent | quote }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

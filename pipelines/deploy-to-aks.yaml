@@ -10,8 +10,6 @@ pool:
 stages:
   - stage: Dev_CD
     displayName: Dev CD
-    dependsOn: Dev_CI
-    condition: succeeded()
     jobs:
       - deployment: dev_helm
         displayName: Deploy helm chart to Dev AKS

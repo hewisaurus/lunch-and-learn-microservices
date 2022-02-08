@@ -1,0 +1,32 @@
+If running in powershell:
+NB: The backtick (\) lets PS know that there's more content to come on the next line.
+
+helm upgrade `
+microservices .\microservices\ `
+-n microservices-dev `
+--create-namespace `
+--set global.imageRepositoryUrl=ccxlunchandlearn.azurecr.io `
+--set frontend.image.repository=frontend-dev `
+--set frontend.image.tag=1155b60fe0c00c5406cf2ef4350455dc7800260b `
+--set frontend.keyedVars.displayContent="Still frontend content AAAA" `
+--set frontend.keyedVars.backendHost=http://microservices-backendapi `
+--set backendapi.image.repository=backendapi-dev `
+--set backendapi.image.tag=653a2229db0346023fa219de8951603163a9fe4e `
+--set backendapi.keyedVars.displayContent="Some special data-driven API message BBBB" `
+--install
+
+If running in bash:
+
+helm upgrade \
+microservices .\microservices\ \
+-n microservices-dev \
+--create-namespace \
+--set global.imageRepositoryUrl=ccxlunchandlearn.azurecr.io \
+--set frontend.image.repository=frontend-dev \
+--set frontend.image.tag=1155b60fe0c00c5406cf2ef4350455dc7800260b \
+--set frontend.keyedVars.displayContent="Still frontend content AAAA" \
+--set frontend.keyedVars.backendHost=http://microservices-backendapi \
+--set backendapi.image.repository=backendapi-dev \
+--set backendapi.image.tag=653a2229db0346023fa219de8951603163a9fe4e \
+--set backendapi.keyedVars.displayContent="Some special data-driven API message BBBB" \
+--install

@@ -16,6 +16,8 @@ steps:
   displayName: 'Run a one-line script'
 - script: echo the tag that called this is called $(tag2)
   displayName: 'Run a one-line script2'
+- script: echo the tag that called this is called ${{ replace($(Build.SourceBranch),'refs/tags/','bbb') }}
+  displayName: 'Run a one-line script3'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.

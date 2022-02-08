@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - "main"
+      - "dev"
   paths:
     include:
       - "src/Services/Frontend"
@@ -43,3 +43,18 @@ stages:
             deploy:
               steps:
                 - template: common/ci-update-vargroup.yaml
+  - stage: Dev_CD
+    displayName: Dev CD
+    dependsOn: Dev_CI
+    condition: succeeded()
+    jobs:
+      - deployment: dev_helm
+        displayName: Deploy helm chart to Dev AKS
+        environment: dev
+        variables:
+          - group: helm-dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - template: common/cd-helm-steps.yaml

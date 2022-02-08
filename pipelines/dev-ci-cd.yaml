@@ -1,15 +1,13 @@
 trigger:
   branches:
     include:
-      - "main"
+      - "dev"
   paths:
     include:
       - "src/Services/Frontend"
 
 variables:
-  tagVar: $(Build.SourceBranch)
-  triggeredTag: ${{replace(variables['tagVar'], 'refs/tags/', '')}}
-  tag2: ${{ replace('$(tagVar)','refs/tags/','aaa') }}
+  - group: vg-aks
 
 pool:
   vmImage: ubuntu-latest
@@ -37,4 +35,19 @@ stages:
           value: "**/src/Services/Accommodation/Accommodation.Api/Dockerfile"
         steps:
           - template: ../common/ci-docker-acr-steps.yaml
+  - stage: Dev_CD
+    displayName: Dev CD
+    dependsOn: Docker_CI
+    condition: succeeded()
+    jobs:
+      - deployment: dev_helm
+        displayName: Deploy helm chart to Dev AKS
+        environment: dev
+        variables:
+          - group: helm-dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - template: common/cd-helm-steps.yaml
 

@@ -1,0 +1,9 @@
+steps:
+- script: |
+    echo $(variableGroupModifierPAT) | az devops login
+    az pipelines variable-group variable update --group-id $(thisVariableGroupId) \
+      --name $(imageTagVariableName) \
+      --value "$(Build.SourceVersion)" \
+      --org $(devOpsOrgUrl) \
+      --project $(devOpsProjectName)
+  displayName: 'Update variables'

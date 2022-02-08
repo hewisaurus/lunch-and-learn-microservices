@@ -4,18 +4,18 @@ trigger:
       - "main"
   paths:
     include:
-      - "src/Services/Frontend"
+      - "src/Services/BackendApi"
 
 variables:
   - group: vg-common
   #- group: vg-serviceConnections
   # Individual variables
   - name: acrRepository
-    value: frontend
+    value: backendapi
   - name: dockerfilePath
-    value: "**/src/Services/Frontend/Dockerfile"
+    value: "**/src/Services/BackendApi/Dockerfile"
   - name: imageTagVariableName
-    value: frontend_imageTag
+    value: backendapi_imageTag
 
 pool:
   vmImage: ubuntu-latest

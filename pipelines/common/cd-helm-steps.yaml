@@ -5,10 +5,15 @@ steps:
   inputs:
     helmVersionToInstall: $(helmVersion)
 - bash: |
-    ls $(Agent.BuildDirectory)
-    ls $(Agent.BuildDirectory)/s
-    ls $(Agent.BuildDirectory)/s/helm
-    ls $(Agent.BuildDirectory)/s/helm/microservices
+    echo namespace: $(aksNamespace)
+    echo global_imageRepositoryUrl: $(global_imageRepositoryUrl)
+    echo frontend_repository: $(frontend_repository)
+    echo frontend_imageTag: $(frontend_imageTag)
+    echo frontend_content: $(frontend_content)
+    echo frontend_backendHost: $(frontend_backendHost)
+    echo backendapi_repository: $(backendapi_repository)
+    echo backendapi_imageTag: $(backendapi_imageTag)
+    echo backendapi_content: $(backendapi_content)
 
     # Log in to Azure
     az login \
